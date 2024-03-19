@@ -27,6 +27,7 @@ end
 
 target 'softruck' do
   config = use_native_modules!
+  #config = use_frameworks!
 
   use_react_native!(
     :path => config[:reactNativePath],

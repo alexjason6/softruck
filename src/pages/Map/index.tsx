@@ -37,9 +37,9 @@ const Map: React.FC = () => {
           strokeWidth={4}
           strokeColor="#0c71c3"
         />
-        <MarkerMap data={data} />
+        <MarkerMap infos={data} />
       </MapView>
-      <MapInfos data={data} />
+      <MapInfos placa={data.vehicle.plate} />
     </View>
   );
 };

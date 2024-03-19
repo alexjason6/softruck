@@ -1,19 +1,18 @@
 import React from 'react';
 
-import {Container, Text} from './styles';
+import {Container, CloseButton, Icon, Text} from './styles';
 
-interface PropsElement {
-  data: {
-    vehicle: {
-      plate: string;
-    };
-  };
+interface propsElement {
+  placa: string;
 }
 
-const MapInfos: React.FC<PropsElement> = ({data}) => {
+const MapInfos: React.FC<propsElement> = ({placa}) => {
   return (
     <Container>
-      <Text plate>{data.vehicle.plate}</Text>
+      <CloseButton>
+        <Icon name="chevron-up" size={20} />
+      </CloseButton>
+      <Text plate>{placa}</Text>
     </Container>
   );
 };
