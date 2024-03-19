@@ -8,9 +8,10 @@ import {View, Image} from './styles';
 
 interface propsElement {
   infos: deviceData;
+  showInfos: () => void;
 }
 
-const MarkerMap: React.FC<propsElement> = ({infos}) => {
+const MarkerMap: React.FC<propsElement> = ({infos, showInfos}) => {
   const getSpritePosition = (direction: number) => {
     const spriteWidth = 45;
     const offsetForZeroDirection = 132;
@@ -22,14 +23,17 @@ const MarkerMap: React.FC<propsElement> = ({infos}) => {
     return spriteX;
   };
 
-  const spritePosition = getSpritePosition(infos.courses[0].gps[0].direction);
+  const spritePosition = getSpritePosition(
+    infos.courses[infos.courses.length - 1].gps[0].direction,
+  );
 
   return (
     <Marker
       anchor={Platform.OS === 'ios' ? {x: 0, y: 0} : {x: 0.5, y: 0.5}}
+      onPress={showInfos}
       coordinate={{
-        latitude: infos.courses[0].gps[0].latitude,
-        longitude: infos.courses[0].gps[0].longitude,
+        latitude: infos.courses[infos.courses.length - 1].gps[0].latitude,
+        longitude: infos.courses[infos.courses.length - 1].gps[0].longitude,
       }}>
       <View>
         <Image
