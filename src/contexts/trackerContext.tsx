@@ -14,9 +14,10 @@ import {coursesType} from '../types/courses';
 import {positionsType} from '../types/positions';
 
 interface TrackerContextData {
-  vehicle: vehicleType | undefined;
-  courses: [coursesType] | undefined;
-  lastPosition: positionsType | undefined;
+  vehicle: vehicleType;
+  courses: [coursesType];
+  lastPosition: positionsType;
+  loading: boolean;
   getVehicleInfos: () => {};
   getLastPosition: () => {};
   getCourses: () => {};
@@ -32,6 +33,7 @@ export const TrackerProvider: React.FC<{children: ReactNode}> = ({
   const [vehicle, setVehicle] = useState();
   const [courses, setCourses] = useState();
   const [lastPosition, setLastPosition] = useState();
+  const [loading, setLoading] = useState(true);
 
   const getLastPosition = async () => {
     const position = await SoftruckServices.getPosition();
@@ -41,9 +43,10 @@ export const TrackerProvider: React.FC<{children: ReactNode}> = ({
     }
 
     setLastPosition(position);
+    getCourses();
   };
 
-  const getVehicleInfos = useCallback(async () => {
+  const getVehicleInfos = async () => {
     const infos = await SoftruckServices.getInfos();
 
     if (infos.message) {
@@ -52,7 +55,7 @@ export const TrackerProvider: React.FC<{children: ReactNode}> = ({
 
     setVehicle(infos);
     getLastPosition();
-  }, []);
+  };
 
   const getCourses = useCallback(async () => {
     const coursesInfo = await SoftruckServices.getCourses();
@@ -62,11 +65,13 @@ export const TrackerProvider: React.FC<{children: ReactNode}> = ({
     }
 
     setCourses(coursesInfo);
+
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     getVehicleInfos();
-  }, [getVehicleInfos]);
+  }, []);
 
   return (
     <TrackerContext.Provider
@@ -74,6 +79,7 @@ export const TrackerProvider: React.FC<{children: ReactNode}> = ({
         vehicle,
         courses,
         lastPosition,
+        loading,
         getVehicleInfos,
         getLastPosition,
         getCourses,

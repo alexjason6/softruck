@@ -1,17 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Platform} from 'react-native';
 import {Marker} from 'react-native-maps';
 
 import {deviceData} from '../../../types/deviceData';
 
 import {View, Image} from './styles';
+import TrackerContext from '../../../contexts/trackerContext';
 
 interface propsElement {
-  infos: deviceData;
   showInfos: () => void;
 }
 
-const MarkerMap: React.FC<propsElement> = ({infos, showInfos}) => {
+const MarkerMap: React.FC<propsElement> = ({showInfos}) => {
+  const {lastPosition} = useContext(TrackerContext);
   const getSpritePosition = (direction: number) => {
     const spriteWidth = 45;
     const offsetForZeroDirection = 132;
@@ -23,25 +24,15 @@ const MarkerMap: React.FC<propsElement> = ({infos, showInfos}) => {
     return spriteX;
   };
 
-  const spritePosition = getSpritePosition(
-    infos.courses[infos.courses.length - 1].gps[
-      infos.courses[infos.courses.length - 1].gps.length - 1
-    ].direction,
-  );
+  const spritePosition = getSpritePosition(lastPosition.direction);
 
   return (
     <Marker
       anchor={Platform.OS === 'ios' ? {x: 0, y: 0} : {x: 0.5, y: 0.5}}
       onPress={showInfos}
       coordinate={{
-        latitude:
-          infos.courses[infos.courses.length - 1].gps[
-            infos.courses[infos.courses.length - 1].gps.length - 1
-          ].latitude,
-        longitude:
-          infos.courses[infos.courses.length - 1].gps[
-            infos.courses[infos.courses.length - 1].gps.length - 1
-          ].longitude,
+        latitude: lastPosition.latitude,
+        longitude: lastPosition.longitude,
       }}>
       <View>
         <Image
