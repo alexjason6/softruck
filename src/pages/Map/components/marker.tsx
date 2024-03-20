@@ -24,7 +24,9 @@ const MarkerMap: React.FC<propsElement> = ({infos, showInfos}) => {
   };
 
   const spritePosition = getSpritePosition(
-    infos.courses[infos.courses.length - 1].gps[0].direction,
+    infos.courses[infos.courses.length - 1].gps[
+      infos.courses[infos.courses.length - 1].gps.length - 1
+    ].direction,
   );
 
   return (
@@ -32,8 +34,14 @@ const MarkerMap: React.FC<propsElement> = ({infos, showInfos}) => {
       anchor={Platform.OS === 'ios' ? {x: 0, y: 0} : {x: 0.5, y: 0.5}}
       onPress={showInfos}
       coordinate={{
-        latitude: infos.courses[infos.courses.length - 1].gps[0].latitude,
-        longitude: infos.courses[infos.courses.length - 1].gps[0].longitude,
+        latitude:
+          infos.courses[infos.courses.length - 1].gps[
+            infos.courses[infos.courses.length - 1].gps.length - 1
+          ].latitude,
+        longitude:
+          infos.courses[infos.courses.length - 1].gps[
+            infos.courses[infos.courses.length - 1].gps.length - 1
+          ].longitude,
       }}>
       <View>
         <Image

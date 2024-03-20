@@ -24,17 +24,27 @@ const Map: React.FC = () => {
       <View />
       <MapView
         region={{
-          latitude: data.courses[data.courses.length - 1].gps[0].latitude,
-          longitude: data.courses[data.courses.length - 1].gps[0].longitude,
+          latitude:
+            data.courses[data.courses.length - 1].gps[
+              data.courses[data.courses.length - 1].gps.length - 1
+            ].latitude,
+          longitude:
+            data.courses[data.courses.length - 1].gps[
+              data.courses[data.courses.length - 1].gps.length - 1
+            ].longitude,
           latitudeDelta:
             Math.max(
               0.01,
-              data.courses[data.courses.length - 1].gps[0].latitude,
+              data.courses[data.courses.length - 1].gps[
+                data.courses[data.courses.length - 1].gps.length - 1
+              ].latitude,
             ) * 1.5,
           longitudeDelta:
             Math.max(
               0.01,
-              data.courses[data.courses.length - 1].gps[0].longitude,
+              data.courses[data.courses.length - 1].gps[
+                data.courses[data.courses.length - 1].gps.length - 1
+              ].longitude,
             ) * 1.5,
         }}
         loadingEnabled={true}
@@ -55,10 +65,28 @@ const Map: React.FC = () => {
       {showInfos && (
         <MapInfos
           placa={data.vehicle.plate}
-          endereco={data.courses[data.courses.length - 1].gps[0].address}
+          endereco={
+            data.courses[data.courses.length - 1].gps[
+              data.courses[data.courses.length - 1].gps.length - 1
+            ].address
+          }
           timeStoped={data.total_stop_time}
           quantStop={data.stops}
           courses={data.num_courses}
+          maxSpeed={data.speed_max}
+          avgSpeed={data.speed_avg}
+          timestampLastPosition={
+            data.courses[data.courses.length - 1].gps[
+              data.courses[data.courses.length - 1].gps.length - 1
+            ].acquisition_time_unix
+          }
+          speed={
+            data.courses[data.courses.length - 1].gps[
+              data.courses[data.courses.length - 1].gps.length - 1
+            ].speed
+          }
+          distance={data.total_distance}
+          image={data.vehicle.picture.address}
         />
       )}
     </>

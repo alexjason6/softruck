@@ -12,12 +12,15 @@ type propsElement = {
   itemData?: boolean;
   sizeInfo?: boolean;
   hr?: boolean;
+  halfHr?: boolean;
   infos2?: boolean;
+  infos3?: boolean;
+  car?: boolean;
 };
 
 export const Container = styled.View<propsElement>`
   width: 100%;
-  height: 200px;
+  height: 210px;
   background: ${({theme}) => theme.colors.white};
   align-self: center;
   position: absolute;
@@ -26,7 +29,7 @@ export const Container = styled.View<propsElement>`
   ${({sizeInfo}) =>
     sizeInfo &&
     css`
-      height: 80%;
+      height: 65%;
     `};
 `;
 
@@ -37,7 +40,15 @@ export const View = styled.View<propsElement>`
   flex-direction: row;
   flex-wrap: wrap;
 
-  ${({item, theme}) =>
+  ${({car}) =>
+    car &&
+    css`
+      margin: 0;
+      align-items: center;
+      justify-content: flex-start;
+    `};
+
+  ${({item, infos2, infos3, theme}) =>
     item &&
     css`
       width: 30%;
@@ -46,23 +57,21 @@ export const View = styled.View<propsElement>`
       border-right-width: 0px;
       border-bottom-width: 4px;
       border-style: solid;
-      border-color: ${theme.colors.oranges.light};
+      border-color: ${infos2
+        ? theme.colors.blues.light
+        : infos3
+        ? theme.colors.greens.light
+        : theme.colors.oranges.light};
       justify-content: center;
       align-items: center;
       flex-direction: column;
     `};
 
-  ${({infos2, theme}) =>
-    infos2 &&
-    css`
-      border-color: ${theme.colors.blues.light};
-    `};
-
-  ${({hr, theme}) =>
+  ${({hr, halfHr, theme}) =>
     hr &&
     css`
       width: 90%;
-      margin: 30px auto;
+      margin: ${halfHr ? 15 : 30}px auto;
       border-top-width: 1px;
       border-top-color: ${theme.colors.grays.lighter};
       border-top-style: solid;
@@ -76,6 +85,14 @@ export const CloseButton = styled.TouchableOpacity`
   margin-bottom: 10px;
   align-items: center;
   justify-content: center;
+`;
+
+export const Image = styled.Image`
+  width: 50px;
+  height: 50px;
+  margin-left: 50%;
+  margin-right: auto;
+  border-radius: 25px;
 `;
 
 export const FiIcon = styled(Feather)`
@@ -102,6 +119,7 @@ export const Text = styled.Text<propsElement>`
   ${({plate}) =>
     plate &&
     css`
+      width: 100%;
       font-size: 18px;
       font-weight: bold;
       margin-left: 10px;
