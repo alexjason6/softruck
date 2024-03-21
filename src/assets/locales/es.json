@@ -1,0 +1,15 @@
+{
+  "loadingMessage": "Cargando...",
+  "startAddress": "Dirección de inicio",
+  "finishAddress": "Finish address",
+  "lastPosition": "Dirección final",
+  "speed": "Velocidad",
+  "maxSpeed": "Máxima velocidad",
+  "avgSpeed": "Promedio velocidad",
+  "totalDistance": "Distancia total",
+  "stopedTime": "Tiempo detenido",
+  "stops": "Parada total",
+  "courses": "Cursos totales",
+  "titleSectionInfos": "Información de posición más reciente",
+  "showCourses": "Mostrar cursos"
+}

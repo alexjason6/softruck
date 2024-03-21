@@ -1,0 +1,15 @@
+{
+  "loadingMessage": "Loading...",
+  "startAddress": "Start address",
+  "finishAddress": "Finish address",
+  "lastPosition": "Last position",
+  "speed": "Speed",
+  "maxSpeed": "Max speed",
+  "avgSpeed": "Avg. speed",
+  "totalDistance": "Total distance",
+  "stopedTime": "Stoped time",
+  "stops": "Total stop",
+  "courses": "Total courses",
+  "titleSectionInfos": "Latest position information",
+  "showCourses": "Show courses"
+}

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import * as RNLocalize from 'react-native-localize';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 moment.locale('pt-br');
@@ -58,6 +59,14 @@ const MapInfos: React.FC<propsElement> = ({
     return `${horas}:${minutosRestantes}:${segundosRestantes}`;
   };
 
+  const currentLocale = RNLocalize.getLocales()[0].languageCode;
+  const messages =
+    currentLocale === 'es'
+      ? require('../../assets/locales/es.json')
+      : currentLocale === 'en'
+      ? require('../../assets/locales/en.json')
+      : require('../../assets/locales/pt_br.json');
+
   const changeOpenedInfos = () => {
     setOpenedInfos(openedInfos ? false : true);
   };
@@ -75,12 +84,12 @@ const MapInfos: React.FC<propsElement> = ({
       <View>
         <View item>
           <MCIcon name="car-connected" size={20} />
-          <Text titleItem>Última posição</Text>
+          <Text titleItem>{messages.lastPosition}</Text>
           <Text itemData>{date}</Text>
         </View>
         <View item>
           <IoniconsIcon name="speedometer" size={20} />
-          <Text titleItem>Velocidade</Text>
+          <Text titleItem>{messages.speed}</Text>
           <Text itemData>{speed} km/h</Text>
         </View>
         <View item>
@@ -90,22 +99,22 @@ const MapInfos: React.FC<propsElement> = ({
 
       <View hr />
 
-      <Text>Informações das últimas posições</Text>
+      <Text>{messages.titleSectionInfos}</Text>
 
       <View>
         <View item infos3>
           <IoniconsIcon name="speedometer-outline" size={20} />
-          <Text titleItem>Velocidade máxima</Text>
+          <Text titleItem>{messages.maxSpeed}</Text>
           <Text itemData>{maxSpeed.toFixed(0)} km/h</Text>
         </View>
         <View item infos3>
           <IoniconsIcon name="speedometer" size={20} />
-          <Text titleItem>Velocidade média</Text>
+          <Text titleItem>{messages.avgSpeed}</Text>
           <Text itemData>{avgSpeed} km/h</Text>
         </View>
         <View item infos3>
           <MCIcon name="map-marker-distance" size={20} />
-          <Text titleItem>Distancia total percorrida</Text>
+          <Text titleItem>{messages.totalDistance}</Text>
           <Text itemData>{String(distance / 1000).split('.')[0]} km</Text>
         </View>
       </View>
@@ -115,17 +124,17 @@ const MapInfos: React.FC<propsElement> = ({
       <View>
         <View item infos2>
           <IoniconsIcon name="stopwatch" size={20} />
-          <Text titleItem>Tempo parado</Text>
+          <Text titleItem>{messages.stopedTime}</Text>
           <Text itemData>{converterTempoParado(timeStoped)}</Text>
         </View>
         <View item infos2>
           <IoniconsIcon name="pause" size={20} />
-          <Text titleItem>Quantidade paradas</Text>
+          <Text titleItem>{messages.stops}</Text>
           <Text itemData>{quantStop}</Text>
         </View>
         <View item infos2>
           <IoniconsIcon name="list" size={20} />
-          <Text titleItem>Quantidade viagens</Text>
+          <Text titleItem>{messages.courses}</Text>
           <Text itemData>{courses}</Text>
         </View>
       </View>
@@ -139,7 +148,7 @@ const MapInfos: React.FC<propsElement> = ({
             changeOpenedInfos();
             showInfos();
           }}>
-          <Text courses>Visualizar viagens</Text>
+          <Text courses>{messages.showCourses}</Text>
         </Button>
       </View>
     </Container>

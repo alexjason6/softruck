@@ -1,0 +1,15 @@
+{
+  "loadingMessage": "Carregando...",
+  "startAddress": "Endereço inicial",
+  "finishAddress": "Endereço final",
+  "lastPosition": "Última posição",
+  "speed": "Velocidade",
+  "maxSpeed": "Velocidade máxima",
+  "avgSpeed": "Velocidade média",
+  "totalDistance": "Distancia total",
+  "stopedTime": "Tempo parado",
+  "stops": "Quantidade paradas",
+  "courses": "Quantidade viagens",
+  "titleSectionInfos": "Informações das últimas posições",
+  "showCourses": "Visualizar viagens"
+}

@@ -33,7 +33,7 @@ const Courses: React.FC = () => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(updatePosition, 500);
+    const intervalId = setInterval(updatePosition, 2000);
 
     return () => clearInterval(intervalId);
   }, [gpsIndex, courseIndex]);
@@ -84,6 +84,7 @@ const Courses: React.FC = () => {
         <Item onPress={() => changeCourse(-1)}>
           <Icon name={'chevron-left'} size={30} />
         </Item>
+
         <Item onPress={() => changeCourse(1)}>
           <Icon name={'chevron-right'} size={30} />
         </Item>
@@ -94,7 +95,6 @@ const Courses: React.FC = () => {
         enderecoFinal={course.gps[course.gps.length - 1].address}
         timestampLastPosition={course.gps[gpsIndex].acquisition_time_unix}
         speed={Number(course.gps[gpsIndex].speed.toFixed(0))}
-        showCourse={value => changeCourse(value)}
       />
     </>
   );
