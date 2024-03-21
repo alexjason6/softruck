@@ -5,7 +5,7 @@ moment.locale('pt-br');
 import {
   Container,
   View,
-  CloseButton,
+  Button,
   Image,
   FiIcon,
   EntypoIcon,
@@ -26,6 +26,7 @@ interface propsElement {
   speed: number;
   distance: number;
   image: string;
+  showInfos: () => void;
 }
 
 const MapInfos: React.FC<propsElement> = ({
@@ -40,6 +41,7 @@ const MapInfos: React.FC<propsElement> = ({
   speed,
   distance,
   image,
+  showInfos,
 }) => {
   const [openedInfos, setOpenedInfos] = useState(false);
   const convertUnixToDate = moment.unix(timestampLastPosition);
@@ -62,9 +64,9 @@ const MapInfos: React.FC<propsElement> = ({
 
   return (
     <Container sizeInfo={openedInfos}>
-      <CloseButton onPress={changeOpenedInfos}>
+      <Button change onPress={changeOpenedInfos}>
         <FiIcon name={!openedInfos ? 'chevron-up' : 'chevron-down'} size={25} />
-      </CloseButton>
+      </Button>
       <Text plate>{placa}</Text>
 
       <Text address>
@@ -89,6 +91,27 @@ const MapInfos: React.FC<propsElement> = ({
       <View hr />
 
       <Text>Informações das últimas posições</Text>
+
+      <View>
+        <View item infos3>
+          <IoniconsIcon name="speedometer-outline" size={20} />
+          <Text titleItem>Velocidade máxima</Text>
+          <Text itemData>{maxSpeed.toFixed(0)} km/h</Text>
+        </View>
+        <View item infos3>
+          <IoniconsIcon name="speedometer" size={20} />
+          <Text titleItem>Velocidade média</Text>
+          <Text itemData>{avgSpeed} km/h</Text>
+        </View>
+        <View item infos3>
+          <MCIcon name="map-marker-distance" size={20} />
+          <Text titleItem>Distancia total percorrida</Text>
+          <Text itemData>{String(distance / 1000).split('.')[0]} km</Text>
+        </View>
+      </View>
+
+      <View hr halfHr />
+
       <View>
         <View item infos2>
           <IoniconsIcon name="stopwatch" size={20} />
@@ -110,21 +133,14 @@ const MapInfos: React.FC<propsElement> = ({
       <View hr halfHr />
 
       <View>
-        <View item infos3>
-          <IoniconsIcon name="speedometer-outline" size={20} />
-          <Text titleItem>Velocidade máxima</Text>
-          <Text itemData>{maxSpeed.toLocaleString().slice(0, 2)} km/h</Text>
-        </View>
-        <View item infos3>
-          <IoniconsIcon name="speedometer" size={20} />
-          <Text titleItem>Velocidade média</Text>
-          <Text itemData>{avgSpeed} km/h</Text>
-        </View>
-        <View item infos3>
-          <MCIcon name="map-marker-distance" size={20} />
-          <Text titleItem>Distancia total percorrida</Text>
-          <Text itemData>{String(distance / 1000).split('.')[0]} km</Text>
-        </View>
+        <Button
+          courses
+          onPress={() => {
+            changeOpenedInfos();
+            showInfos();
+          }}>
+          <Text courses>Visualizar viagens</Text>
+        </Button>
       </View>
     </Container>
   );

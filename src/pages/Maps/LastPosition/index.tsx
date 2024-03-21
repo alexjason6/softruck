@@ -1,31 +1,21 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useContext} from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import {StyleSheet} from 'react-native';
 import MapView, {Polyline} from 'react-native-maps';
 
-import TrackerContext from '../../contexts/trackerContext';
+import TrackerContext from '../../../contexts/trackerContext';
 
-import MapInfos from '../../components/MapInfos';
-import MarkerMap from './components/marker';
+import MapInfos from '../../../components/MapInfos';
+import MarkerMap from '../components/marker';
 
 import {SafeAreView} from './styles';
 
-const Map: React.FC = () => {
-  const {vehicle, lastPosition, courses, loading} = useContext(TrackerContext);
-  const [showInfos, setShowInfos] = useState(false);
+interface propsElement {
+  show: () => void;
+}
 
-  if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <ActivityIndicator size="small" color={'#7248d0'} />
-      </View>
-    );
-  }
+const LastPosition: React.FC<propsElement> = ({show}) => {
+  const {vehicle, lastPosition, courses} = useContext(TrackerContext);
+  const [showInfos, setShowInfos] = useState(false);
 
   const polyline = courses[courses?.length - 1].gps.map(position => ({
     latitude: position.latitude,
@@ -36,7 +26,9 @@ const Map: React.FC = () => {
     setShowInfos(showInfos ? false : true);
   };
 
-  console.log(vehicle);
+  const changeVisibilityInfosAndComponents = () => {
+    show();
+  };
 
   return (
     <>
@@ -55,7 +47,7 @@ const Map: React.FC = () => {
         zoomTapEnabled={true}
         showsTraffic={true}
         rotateEnabled={false}
-        style={{flex: 1}}>
+        style={styles.container}>
         <Polyline
           coordinates={polyline}
           strokeWidth={4}
@@ -76,10 +68,17 @@ const Map: React.FC = () => {
           speed={lastPosition.speed}
           distance={vehicle.total_distance}
           image={vehicle.vehicle.picture.address}
+          showInfos={changeVisibilityInfosAndComponents}
         />
       )}
     </>
   );
 };
 
-export default Map;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+export default LastPosition;

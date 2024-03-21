@@ -2,9 +2,7 @@ import React, {useContext} from 'react';
 import {Platform} from 'react-native';
 import {Marker} from 'react-native-maps';
 
-import {deviceData} from '../../../types/deviceData';
-
-import {View, Image} from './styles';
+import {View, Image} from '../../Maps/components/styles';
 import TrackerContext from '../../../contexts/trackerContext';
 
 interface propsElement {

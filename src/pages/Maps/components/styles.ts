@@ -13,6 +13,4 @@ export const View = styled.View`
 export const Image = styled.Image<elementProps>`
   width: 350px;
   height: 350px;
-  /*   position: absolute;
-  left: ${({position}) => position}; */
 `;
